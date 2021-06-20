@@ -59,6 +59,7 @@ python main.py
 
 
 # Corresponding references
+* https://github.com/nikdon/pyEntropy
 * K.  Keller  and  H.  Lauffer,  “Symbolic  Analysis  of  High-DimensionalTime Series”, International Journal of Bifurcation and Chaos, vol. 13,no. 09, pp. 2657–2668, Sep. 2003.
 * M.  Mohr,  F.  Wilhelm,  and  R.  Möller,  “On  the  Behaviour  of  Weighted Permutation  Entropy  on  Fractional  Brownian  Motion  in  the  Univariate and  Multivariate  Setting”, The  International  FLAIRS  Conference  Proceedings, vol. 34, Apr. 2021.
 * F.  C.  Morabito,  D.  Labate,  F.  La  Foresta,  A.  Bramanti,  G.  Morabito,and  I.  Palamara,  “Multivariate  Multi-Scale  Permutation  Entropy  for Complexity  Analysis  of  Alzheimer’s  Disease  EEG ”, Entropy,  vol.  14,no. 7, pp. 1186–1202, Jul. 2012.
