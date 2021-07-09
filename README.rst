@@ -87,20 +87,21 @@ References
 
 .. [#bandt_pompe] Bandt, C., and Pompe, B. (2002). Permutation entropy: A Natural 
    Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
-.. [#mohr] Mohr, M., Wilhelm, F., Hartwig, M., Möller, R., and Keller, K. (2020). 
-    New Approaches in Ordinal Pattern Representations for Multivariate Time Series. 
-    In: Proceedings of the 33rd International Florida Artificial Intelligence 
-    Research Society Conference (FLAIRS-33).
 .. [#keller_lauffer] Keller, K., and Lauffer, H. (2003). Symbolic Analysis of 
     High-Dimensional Time Series. International Journal of Bifurcation and Chaos,
-    vol. 13,no. 09, pp. 2657–2668.
+    vol. 13,no. 09, pp. 2657–2668.  
+.. [#morabito] Morabito, F.C., Labate, D., La  Foresta, F., Bramanti, A., Morabito, G.,
+    and Palamara I. (2012). Multivariate  Multi-Scale  Permutation  Entropy  for 
+    Complexity Analysis of Alzheimer’s Disease EEG. Entropy, vol. 14, no. 7.
 .. [#mohr_a] Mohr, M., Wilhelm, F., and  Möller, R. (2021). On  the  Behaviour
     of Weighted Permutation Entropy on Fractional Brownian Motion in the Univariate
     and Multivariate Setting. The  International  FLAIRS  Conference  Proceedings,
     vol. 34.
-.. [#morabito] Morabito, F.C., Labate, D., La  Foresta, F., Bramanti, A., Morabito, G.,
-    and Palamara I. (2012). Multivariate  Multi-Scale  Permutation  Entropy  for 
-    Complexity Analysis of Alzheimer’s Disease EEG. Entropy, vol. 14, no. 7.
+.. [#mohr] Mohr, M., Wilhelm, F., Hartwig, M., Möller, R., and Keller, K. (2020). 
+    New Approaches in Ordinal Pattern Representations for Multivariate Time Series. 
+    In: Proceedings of the 33rd International Florida Artificial Intelligence 
+    Research Society Conference (FLAIRS-33).
+
 
 
 
