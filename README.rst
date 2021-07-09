@@ -93,7 +93,7 @@ References
 .. [#morabito] Morabito, F.C., Labate, D., La  Foresta, F., Bramanti, A., Morabito, G.,
     and Palamara I. (2012). Multivariate  Multi-Scale  Permutation  Entropy  for 
     Complexity Analysis of Alzheimer’s Disease EEG. Entropy, vol. 14, no. 7.
-.. [#mohr_a] Mohr, M., Wilhelm, F., and  Möller, R. (2021). On  the  Behaviour
+.. [#mohr_a] Mohr, M., Wilhelm, F., and  Möller, R. (2021). On the Behaviour
     of Weighted Permutation Entropy on Fractional Brownian Motion in the Univariate
     and Multivariate Setting. The  International  FLAIRS  Conference  Proceedings,
     vol. 34.
