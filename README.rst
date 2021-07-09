@@ -43,7 +43,7 @@ Basic usage
     import subprocess
     import csv
     import pandas as pd
-    import mpepy
+    import mpepy as mpe
 
 
     # Example of data simulation: multivariate fractional Brownian motion
