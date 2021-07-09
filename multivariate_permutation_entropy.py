@@ -10,8 +10,10 @@ from sklearn.decomposition import PCA
 Calculation of different multivariate permutation entropy, e.g.,
 - pooled permutation entropy,
 - multivariate weighted permutation entropy, 
-- multivariate multiscale permutation entropy, and
+- multivariate multiscale permutation entropy,
+- multivariate ordinal pattern permutation entropy, and
 - multivariate permutation entropy based on principal component analysis 
+
 """ 
 
 def pooled_permutation_entropy(mts, order, delay):
@@ -202,6 +204,9 @@ def multivariate_weighted_permutation_entropy(mts, order, delay):
 
     return  mwpe
 
+
+
+
 def multivariate_multiscale_permutation_entropy(mts, order, delay, scale):
     """ 
     based on F.  C.  Morabito,  D.  Labate,  F.  La  Foresta,  A.  Bramanti,  G.  Morabito,and  I.  Palamara,  “Multivariate  Multi-Scale  Permutation  Entropy  for Complexity  Analysis  of  Alzheimer’s  Disease  EEG ”, Entropy,  vol.  14,no. 7, pp. 1186–1202, Jul. 2012.
@@ -219,6 +224,80 @@ def multivariate_multiscale_permutation_entropy(mts, order, delay, scale):
     return  mmspe
 
 
+
+
+def multivariate_ordinal_pattern_permutation_entropy(mts, order, delay):
+    """ 
+    based on M.  Mohr,  F.  Wilhelm,  M.  Hartwig,  R.  Möller,  and  K.  Keller,  “New Approaches  in  Ordinal  Pattern  Representations  for  Multivariate  TimeSeries,”  in Proceedings  of  the  33rd  International  Florida  Artificial Intelligence Research Society Conference (FLAIRS-33), 2020
+    """ 
+    window_size = (order - 1) * delay + 1
+    no_of_dim_m = mts.shape[0]
+    no_of_samples_T = mts.shape[1]
+    #permutations = np.array(list(itertools.permutations(range(order))))
+
+    multivariate_pattern_counts_as_dict = {}
+
+    # iterative window-wise through multivariate time series
+    for t in range(window_size, no_of_samples_T, 1):
+        # determine column index to extract from time series
+        window_column_arr = np.arange((t-window_size), t)
+        window_column_arr_skipped_delay = []
+        delay_counter = 0
+        for column_idx in window_column_arr:
+            if delay_counter % delay == 0:
+                window_column_arr_skipped_delay.append(column_idx)
+            delay_counter += 1
+
+        window = mts[window_column_arr_skipped_delay]
+
+        # determine ordinal pattern per dimension
+        multivariate_pattern = []
+        for dim in range(0, no_of_dim_m):
+
+            # determine pattern for window
+            pattern = []
+            dim_window = window.loc[dim, :].to_numpy()
+            dim_window_sorted = copy.copy(dim_window)
+            dim_window_sorted.sort() 
+
+            # do index lookup to reduce from value representation (e.g. 1 7 5) to "pattern" represenation (e.g. 0 2 1)
+            for number in dim_window_sorted:
+                idx_in_window = np.where(dim_window == number)
+                idx_in_window = idx_in_window[0][0]
+                pattern.append(idx_in_window)
+
+            multivariate_pattern.append(pattern)
+
+        # determine unique indicator for multivariate pattern
+        hashmult = np.power(order, np.arange((order*no_of_dim_m)))
+        hashmult_matrix = hashmult.reshape((no_of_dim_m, order))
+        hashval = (np.multiply(multivariate_pattern, hashmult_matrix)).sum()
+
+        # append hashval as indicatior for multivariate pattern to counter
+        contains_pattern = str(hashval) in multivariate_pattern_counts_as_dict.keys()
+        if contains_pattern:
+            multivariate_pattern_counts_as_dict[str(hashval)] = multivariate_pattern_counts_as_dict[str(hashval)] + 1
+        else:
+            multivariate_pattern_counts_as_dict[str(hashval)] = 1
+
+    # determine frequency array based on patterns
+    freq_arr = []
+    for key in multivariate_pattern_counts_as_dict.keys():
+        m_pattern_count = multivariate_pattern_counts_as_dict[key]
+        freq = (m_pattern_count / (no_of_samples_T - delay*(order-1)))
+        freq_arr.append(freq)
+
+    # calculate moppe based on frequency array
+    moppe = 0
+    for freq in freq_arr:
+        moppe += freq * np.log(freq)
+    moppe = moppe * -1
+    
+    return moppe
+
+
+
+
 def multivariate_permutation_entropy_pca(mts, order, delay, no_pc):
     """ 
     based on M.  Mohr,  F.  Wilhelm,  M.  Hartwig,  R.  Möller,  and  K.  Keller,  “New Approaches  in  Ordinal  Pattern  Representations  for  Multivariate  TimeSeries,”  in Proceedings  of  the  33rd  International  Florida  Artificial Intelligence Research Society Conference (FLAIRS-33), 2020
@@ -226,9 +305,8 @@ def multivariate_permutation_entropy_pca(mts, order, delay, no_pc):
     dimensions = mts.shape[0]
     # perform principal component analysis
     pca = PCA(n_components=dimensions)
-    mts_pca_arr = pca.fit(mts)
-    mts_pca_arr = pca.components_       
-    mts_pca = pd.DataFrame(np.transpose(mts_pca_arr))    
+    mts_pca_arr = pca.fit_transform(mts.T)    
+    mts_pca = pd.DataFrame(mts_pca_arr)  
     # calculate permutation entropy based on principal component analysis
     if no_pc == "all":
         # calculate mpe-ppe, i.e., pooled permutation entropy based on all principal components
@@ -239,3 +317,4 @@ def multivariate_permutation_entropy_pca(mts, order, delay, no_pc):
         mpe_pca = ent.permutation_entropy(pc, order , delay )
     
     return  mpe_pca
+
