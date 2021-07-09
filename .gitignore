@@ -1,3 +1,7 @@
 /ENV
 /__pycache__
 intermediate_output/MultiFracBrownMotionOutput.csv
+/dist
+/.vscode
+mpePy.egg-info
+requirements.txt
